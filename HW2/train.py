@@ -14,7 +14,7 @@ import time
 import datetime
 import loadData
 from AlexNet import CNN
-os.chdir('C:\\Users\\alpoise\\Desktop\\DL_course\\HW2')
+os.chdir('C:/Users/alpoise/Documents/GitHub/DeepLearning/HW2')
 # Parameters
 # ==================================================
 
@@ -23,11 +23,11 @@ tf.flags.DEFINE_float("dropout_keep_prob", 0.5, "Dropout keep probability (defau
 tf.flags.DEFINE_float("l2_reg_lambda", 0.01, "L2 regularization lambda (default: 0.01)")
 
 # Training parameters
-tf.flags.DEFINE_integer("batch_size", 40, "Batch Size (default: 30)")
-tf.flags.DEFINE_integer("num_epochs", 80, "Number of training epochs (default: 20)")
+tf.flags.DEFINE_integer("batch_size", 30, "Batch Size (default: 30)")
+tf.flags.DEFINE_integer("num_epochs", 20, "Number of training epochs (default: 20)")
 tf.flags.DEFINE_integer("evaluate_every", 30, "Evaluate model on dev set after this many steps (default: 20)")
-tf.flags.DEFINE_integer("checkpoint_every", 30, "Save model after this many steps (default: 20)")
-tf.flags.DEFINE_integer("num_checkpoints",5, "Number of checkpoints to store (default: 5)")
+tf.flags.DEFINE_integer("checkpoint_every", 50, "Save model after this many steps (default: 20)")
+tf.flags.DEFINE_integer("num_checkpoints",1, "Number of checkpoints to store (default: 5)")
 
 # Misc Parameters
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
@@ -62,7 +62,7 @@ with tf.Graph().as_default():
         optimizer = tf.train.AdamOptimizer(1e-4)
         grads_and_vars = optimizer.compute_gradients(cnn.loss)
         train_op = optimizer.apply_gradients(grads_and_vars, global_step=global_step)
-        """
+        
         # Keep track of gradient values and sparsity (optional)
         grad_summaries = []
         for g, v in grads_and_vars:
@@ -72,7 +72,7 @@ with tf.Graph().as_default():
                 grad_summaries.append(grad_hist_summary)
                 grad_summaries.append(sparsity_summary)
         grad_summaries_merged = tf.summary.merge(grad_summaries)
-        """
+        
         # Output directory for models and summaries
         timestamp = str(int(time.time()))
         out_dir = os.path.abspath(os.path.join(os.path.curdir, "runs", timestamp))
@@ -116,7 +116,7 @@ with tf.Graph().as_default():
                 feed_dict)
             #time_str = datetime.datetime.now().isoformat()
             #print("{}: step {}, loss {:g}, acc {:g}".format(time_str, step, loss, accuracy))
-            #train_summary_writer.add_summary(summaries, step)
+            train_summary_writer.add_summary(summaries, step)
 
         def test_step(x_batch, y_batch, writer=None):
             """
@@ -145,8 +145,8 @@ with tf.Graph().as_default():
             current_step = tf.train.global_step(sess, global_step)
             if current_step % FLAGS.evaluate_every == 0:
                 print("\nEvaluation:")
-                test_step(test_x, test_y)#, writer=test_summary_writer)
+                test_step(test_x, test_y, writer=test_summary_writer)
                 print("")
             #if current_step % FLAGS.checkpoint_every == 0:
-             #   path = saver.save(sess, checkpoint_prefix, global_step=current_step)
-             #   print("Saved model checkpoint to {}\n".format(path))
+            #    path = saver.save(sess, checkpoint_prefix, global_step=current_step)
+            #    print("Saved model checkpoint to {}\n".format(path))
