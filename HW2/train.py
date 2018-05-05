@@ -24,10 +24,10 @@ tf.flags.DEFINE_float("l2_reg_lambda", 0.01, "L2 regularization lambda (default:
 
 # Training parameters
 tf.flags.DEFINE_integer("batch_size", 30, "Batch Size (default: 30)")
-tf.flags.DEFINE_integer("num_epochs", 20, "Number of training epochs (default: 20)")
+tf.flags.DEFINE_integer("num_epochs", 80, "Number of training epochs (default: 20)")
 tf.flags.DEFINE_integer("evaluate_every", 30, "Evaluate model on dev set after this many steps (default: 20)")
 tf.flags.DEFINE_integer("checkpoint_every", 50, "Save model after this many steps (default: 20)")
-tf.flags.DEFINE_integer("num_checkpoints",1, "Number of checkpoints to store (default: 5)")
+tf.flags.DEFINE_integer("num_checkpoints",3, "Number of checkpoints to store (default: 5)")
 
 # Misc Parameters
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
