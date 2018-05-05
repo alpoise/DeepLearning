@@ -147,6 +147,6 @@ with tf.Graph().as_default():
                 print("\nEvaluation:")
                 test_step(test_x, test_y, writer=test_summary_writer)
                 print("")
-            #if current_step % FLAGS.checkpoint_every == 0:
-            #    path = saver.save(sess, checkpoint_prefix, global_step=current_step)
-            #    print("Saved model checkpoint to {}\n".format(path))
+            if current_step % FLAGS.checkpoint_every == 0:
+                path = saver.save(sess, checkpoint_prefix, global_step=current_step)
+                print("Saved model checkpoint to {}\n".format(path))
